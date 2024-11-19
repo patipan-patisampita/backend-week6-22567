@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    //Method GET: http://127.0.0.1:8000/account/login
     public function index()
     {
         return view('login');
     }
-
+    
+    //Method POST: http://127.0.0.1:8000/account/login
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -35,11 +37,13 @@ class UserController extends Controller
         }
     }
 
+    // Method GET: http://127.0.0.1:8000/account/register
     public function register()
     {
         return view('register');
     }
 
+    // Method POST: http://127.0.0.1:8000/account/register
     public function processRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -62,5 +66,11 @@ class UserController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
+    }
+
+    // Method POST: http://127.0.0.1:8000/account/register
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('account.login');
     }
 }
